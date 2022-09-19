@@ -1,0 +1,114 @@
+basePath: /
+definitions:
+  handler.response:
+    properties:
+      message:
+        type: string
+      status:
+        type: string
+    type: object
+  repository.Request:
+    properties:
+      headers:
+        additionalProperties:
+          type: string
+        type: object
+      method:
+        type: string
+      url:
+        type: string
+    type: object
+  repository.Response:
+    properties:
+      headers:
+        additionalProperties:
+          type: string
+        type: object
+      id:
+        type: string
+      length:
+        type: integer
+      status:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Simple service on Go for proxying HTTP requests to third-party services.
+  title: Proxy
+  version: "1.0"
+paths:
+  /:
+    post:
+      consumes:
+      - application/json
+      description: Отправляет запрос и сохраняет данные
+      operationId: send-handle
+      parameters:
+      - description: входные данные
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/repository.Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/repository.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.response'
+        "404":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.response'
+      summary: Отправляет запрос и сохраняет данные
+      tags:
+      - api
+  /history:
+    get:
+      description: Возвращет все записи
+      operationId: get-all-history-handle
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/repository.Response'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.response'
+        "404":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.response'
+      summary: Возвращет все записи
+      tags:
+      - api
+  /ping:
+    get:
+      description: Ping запрос для проверки сервиса
+      operationId: pint-handle
+      responses:
+        "200":
+          description: ""
+      summary: Ping запрос для проверки сервиса
+      tags:
+      - api
+swagger: "2.0"
