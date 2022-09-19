@@ -1,6 +1,25 @@
 # proxy
 Simple service for proxying HTTP requests to third-party services.
 
+## How to use
+
+To run the required command in terminal:
+```bash
+make run
+```
+---
+
+To check the methods and view the documentation, follow the link:
+```bash
+http://localhost:8080/swagger/index.html
+```
+---
+
+To stop the service, run the following command in the terminal:
+```bash
+make down
+```
+
 ## Request samples
 
 cURL samples can be run from command line
